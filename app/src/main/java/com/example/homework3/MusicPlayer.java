@@ -19,9 +19,14 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     static final String[] MUSICNAME = new String[]{
             "Go Tech Go!",
-            "Clapping",
-            "Cheering",
-            "Go Hokies!"
+            "VT Fight Music",
+            "VT March Music"
+    };
+
+    static final int[] SOUNDPATH = new int[]{
+            R.raw.clapping,
+            R.raw.cheering,
+            R.raw.lestgohokies
     };
 
     public MusicPlayer(MusicService service) {
@@ -36,7 +41,6 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public String getMusicName() {
-
         return MUSICNAME[musicIndex];
     }
 
@@ -65,16 +69,16 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public void restartMusic() {
-        player.release();
-        player = null;
-        playMusic();
+        if (musicStatus != 0) {
+            player.release();
+            player = null;
+            musicStatus = 0;
+        }
     }
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        musicIndex = (musicIndex + 1) % MUSICNAME.length;
         player.release();
         player = null;
-        playMusic();
     }
 }

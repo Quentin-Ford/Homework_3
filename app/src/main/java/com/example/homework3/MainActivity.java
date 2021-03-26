@@ -65,9 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == play.getId()) {
-            playClick(view);
+            playClick();
         }
         else if (view.getId() == restart.getId()) {
+            play.setText("Play");
             musicService.restartMusic();
         }
         else if (view.getId() == editor.getId()) {
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void playClick(View view) {
+    public void playClick() {
         if (isBound) {
             switch (musicService.getPlayingStatus()){
                 case 0:
@@ -95,9 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     public void updateName(String musicName) {
-
         music.setText(musicName);
     }
 
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             switch (musicService.getPlayingStatus()) {
                 case 0:
-                    play.setText("Start");
+                    play.setText("Play");
                     break;
                 case 1:
                     play.setText("Pause");
