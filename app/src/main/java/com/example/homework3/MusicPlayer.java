@@ -7,6 +7,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     MediaPlayer player;
     int currentPosition = 0;
     int musicIndex = 0;
+    int soundIndex = 0;
     private int musicStatus = 0;//0: before playing, 1 playing, 2 paused
     private MusicService musicService;
 
@@ -22,10 +23,22 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             "VT March Music"
     };
 
+    static final int[] MUSICLENGTH = new int[]{
+            49,
+            71,
+            133
+    };
+
     static final int[] SOUNDPATH = new int[]{
             R.raw.clapping,
             R.raw.cheering,
             R.raw.lestgohokies
+    };
+
+    static final String[] SOUNDNAME = new String[]{
+            "clapping",
+            "cheering",
+            "go hokies"
     };
 
     public MusicPlayer(MusicService service) {
@@ -39,8 +52,16 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         return musicStatus;
     }
 
+    public int getMusicLength() {
+        return MUSICLENGTH[musicIndex];
+    }
+
     public String getMusicName() {
         return MUSICNAME[musicIndex];
+    }
+
+    public String getSoundName() {
+        return SOUNDNAME[soundIndex];
     }
 
     public void setMusicIndex(int index) {
@@ -79,7 +100,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public void reset() {
-        if (musicStatus != 0) {
+        if (musicStatus != 0 && player != null) {
             player.release();
             player = null;
             musicStatus = 0;
@@ -90,7 +111,19 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     public void onCompletion(MediaPlayer mediaPlayer) {
         player.release();
         player = null;
+        MusicService.stopTask();
+        MainActivity.getReceiver().updatePicture("default");
     }
 
 
+    public void setSoundIndex(int position) {
+        soundIndex = position;
+    }
+
+    public void playSound() {
+        player= MediaPlayer.create(this.musicService, SOUNDPATH[soundIndex]);
+        player.start();
+        player.setOnCompletionListener(this);
+        musicStatus = 1;
+    }
 }

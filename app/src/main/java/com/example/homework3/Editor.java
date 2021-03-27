@@ -65,6 +65,93 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
+        sound1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setSound1(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        sound2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setSound2(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        sound3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setSound3(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        seek1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                MainActivity.musicService.setStart1(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seek2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                MainActivity.musicService.setStart2(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seek3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                MainActivity.musicService.setStart3(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         if(savedInstanceState != null){
             //get the saved spinner entries
             music.setSelection(savedInstanceState.getInt(MUSIC));
@@ -82,6 +169,18 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
 
             current = savedInstanceState.getInt(MUSIC);
         }
+    }
+
+    private void setSound1(int position) {
+        MainActivity.musicService.setSound1(position);
+    }
+
+    private void setSound2(int position) {
+        MainActivity.musicService.setSound2(position);
+    }
+
+    private void setSound3(int position) {
+        MainActivity.musicService.setSound3(position);
     }
 
     private void musicHandler(int position) {
@@ -112,6 +211,7 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
 
             current = position;
 
+            MusicService.stopTask();
         }
     }
 
@@ -133,6 +233,7 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        MainActivity.getReceiver().updatePicture("default");
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityIfNeeded(intent, 0);

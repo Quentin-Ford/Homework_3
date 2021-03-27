@@ -25,4 +25,8 @@ public class MusicCompletionReceiver extends BroadcastReceiver {
     public void updateName(String musicName){
         mainActivity.updateName(musicName);
     }
+
+    public void updatePicture(String pictureName){
+        mainActivity.updatePicture(pictureName);
+    }
 }

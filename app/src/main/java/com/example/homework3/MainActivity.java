@@ -106,6 +106,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         musicService.newMusic();
     }
 
+    public void updatePicture(String pictureName) {
+        switch (pictureName){
+            case "clapping":
+                picture.setImageResource(R.drawable.clapping);
+                break;
+            case "cheering":
+                picture.setImageResource(R.drawable.cheering);
+                break;
+            case "go hokies":
+                picture.setImageResource(R.drawable.go);
+                break;
+            default:
+                picture.setImageResource(R.drawable.go_hokies);
+        }
+    }
+
     public static MusicCompletionReceiver getReceiver(){
         return musicCompletionReceiver;
     }
@@ -167,4 +183,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isBound = false;
         }
     };
+
+
 }
