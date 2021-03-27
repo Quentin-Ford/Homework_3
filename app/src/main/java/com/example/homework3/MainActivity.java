@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button editor;
     ImageView picture;
 
-    MusicService musicService;
-    MusicCompletionReceiver musicCompletionReceiver;
+    public static MusicService musicService;
+    static MusicCompletionReceiver musicCompletionReceiver;
     Intent startMusicServiceIntent;
     boolean isBound = false;
     boolean isInitialized = false;
@@ -68,12 +68,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             playClick();
         }
         else if (view.getId() == restart.getId()) {
-            play.setText("Play");
+            play.setText("Pause");
             musicService.restartMusic();
         }
         else if (view.getId() == editor.getId()) {
             Intent intent = new Intent(this, Editor.class);
-            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivityIfNeeded(intent, 0);
         }
     }
 
@@ -98,6 +99,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void updateName(String musicName) {
         music.setText(musicName);
+        play.setText("Play");
+        musicService.newMusic();
+    }
+
+    public static MusicCompletionReceiver getReceiver(){
+        return musicCompletionReceiver;
     }
 
     @Override

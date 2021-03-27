@@ -21,4 +21,8 @@ public class MusicCompletionReceiver extends BroadcastReceiver {
         String musicName= intent.getStringExtra(MusicService.MUSICNAME);
         mainActivity.updateName(musicName);
     }
+
+    public void updateName(String musicName){
+        mainActivity.updateName(musicName);
+    }
 }

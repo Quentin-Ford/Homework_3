@@ -22,22 +22,18 @@ public class MusicService extends Service {
     }
 
     public void startMusic(){
-
         musicPlayer.playMusic();
     }
 
     public void pauseMusic(){
-
         musicPlayer.pauseMusic();
     }
 
     public void resumeMusic(){
-
         musicPlayer.resumeMusic();
     }
 
     public int getPlayingStatus(){
-
         return musicPlayer.getMusicStatus();
     }
 
@@ -45,6 +41,13 @@ public class MusicService extends Service {
         musicPlayer.restartMusic();
     }
 
+    public void setMusic(int position){
+        musicPlayer.setMusicIndex(position);
+    }
+
+    public void newMusic(){
+        musicPlayer.reset();
+    }
 
     public void onUpdateMusicName(String musicname) {
         Intent intent = new Intent(COMPLETE_INTENT);

@@ -12,9 +12,8 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     static final int[] MUSICPATH = new int[]{
             R.raw.gotechgo,
-            R.raw.clapping,
-            R.raw.cheering,
-            R.raw.lestgohokies
+            R.raw.fight_song,
+            R.raw.march_song
     };
 
     static final String[] MUSICNAME = new String[]{
@@ -44,11 +43,14 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         return MUSICNAME[musicIndex];
     }
 
+    public void setMusicIndex(int index) {
+        musicIndex = index;
+    }
+
     public void playMusic() {
         player= MediaPlayer.create(this.musicService, MUSICPATH[musicIndex]);
         player.start();
         player.setOnCompletionListener(this);
-        musicService.onUpdateMusicName(getMusicName());
         musicStatus = 1;
     }
 
@@ -61,14 +63,22 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public void resumeMusic() {
-        if(player!= null){
+        if(player != null){
             player.seekTo(currentPosition);
             player.start();
-            musicStatus=1;
+            musicStatus = 1;
         }
     }
 
     public void restartMusic() {
+        if (musicStatus != 0) {
+            player.release();
+            player = null;
+            playMusic();
+        }
+    }
+
+    public void reset() {
         if (musicStatus != 0) {
             player.release();
             player = null;
@@ -81,4 +91,6 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         player.release();
         player = null;
     }
+
+
 }
