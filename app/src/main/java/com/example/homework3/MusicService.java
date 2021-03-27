@@ -49,10 +49,8 @@ public class MusicService extends Service {
         musicPlayer.reset();
     }
 
-    public void onUpdateMusicName(String musicname) {
-        Intent intent = new Intent(COMPLETE_INTENT);
-        intent.putExtra(MUSICNAME, musicname);
-        sendBroadcast(intent);
+    public String getMusic(){
+        return musicPlayer.getMusicName();
     }
 
     @Nullable

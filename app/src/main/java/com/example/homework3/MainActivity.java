@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         musicCompletionReceiver = new MusicCompletionReceiver(this);
 
+        if(savedInstanceState != null){
+            music.setText(musicService.getMusic());
+        }
     }
 
     @Override
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(INITIALIZE_STATUS, isInitialized);
+        outState.putString(MUSIC_PLAYING, music.getText().toString());
         super.onSaveInstanceState(outState);
     }
 

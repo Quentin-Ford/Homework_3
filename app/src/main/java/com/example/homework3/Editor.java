@@ -20,7 +20,7 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
     SeekBar seek3;
     Button exit;
 
-    int initialized = 0;
+    int current;
 
     public final static String MUSIC = "music name";
 
@@ -48,6 +48,8 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
         seek2 = (SeekBar) findViewById(R.id.seekBar2);
         seek3 = (SeekBar) findViewById(R.id.seekBar3);
         exit = (Button) findViewById(R.id.exit_editor);
+
+        current = 0;
 
         //set listeners
         exit.setOnClickListener(this);
@@ -77,11 +79,13 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
             seek1.setProgress(savedInstanceState.getInt(SEEK1));
             seek2.setProgress(savedInstanceState.getInt(SEEK2));
             seek3.setProgress(savedInstanceState.getInt(SEEK3));
+
+            current = savedInstanceState.getInt(MUSIC);
         }
     }
 
     private void musicHandler(int position) {
-        if (initialized > 0) {
+        if (current != position) {
             if (position == 0) {
                 //set a new max
                 seek1.setMax(39);
@@ -105,8 +109,10 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
             //set the new music
             MainActivity.musicService.setMusic(position);
             MainActivity.getReceiver().updateName(music.getSelectedItem().toString());
+
+            current = position;
+
         }
-        initialized++;
     }
 
     @Override

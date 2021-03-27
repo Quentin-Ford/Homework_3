@@ -2,8 +2,8 @@
     <string name="app_name">Homework 3</string>
     <string-array name="music_array">
         <item>Go Tech Go!</item>
-        <item>VT Fight Song</item>
-        <item>VT March Song</item>
+        <item>VT Fight Music</item>
+        <item>VT March Music</item>
     </string-array>
     <string-array name="sound_array">
         <item>Clapping</item>
