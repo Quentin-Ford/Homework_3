@@ -211,6 +211,8 @@ public class Editor extends AppCompatActivity implements View.OnClickListener {
 
             current = position;
 
+            MainActivity.musicService.rewind();
+
             MusicService.stopTask();
         }
     }

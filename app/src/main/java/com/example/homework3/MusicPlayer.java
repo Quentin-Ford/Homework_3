@@ -95,8 +95,8 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         if (musicStatus != 0) {
             player.release();
             player = null;
-            playMusic();
         }
+        playMusic();
     }
 
     public void reset() {
@@ -109,9 +109,9 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
+        musicStatus = 0;
         player.release();
         player = null;
-        MusicService.stopTask();
         MainActivity.getReceiver().updatePicture("default");
     }
 

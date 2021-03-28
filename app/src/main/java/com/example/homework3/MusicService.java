@@ -64,6 +64,10 @@ public class MusicService extends Service {
         myAsyncTask.cancel(true);
     }
 
+    public void rewind() {
+        seconds = 0;
+    }
+
     public void resumeMusic(){
         musicPlayer.resumeMusic();
         if (sound1.getMusicStatus() == 2){
